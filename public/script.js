@@ -1,22 +1,21 @@
-const API_URL = "/api/patients";
+const API_URL = "/api/books";
 
-const form = document.getElementById("patientForm");
-const table = document.getElementById("patientTable");
+const form = document.getElementById("bookForm");
+const table = document.getElementById("bookTable");
 
-loadPatients();
+loadBooks();
 
 form.addEventListener("submit", async (e) => {
+
 e.preventDefault();
 
-const id = document.getElementById("patientId").value;
+const id = document.getElementById("bookId").value;
 
-const patient = {
-fullName: document.getElementById("fullName").value,
-email: document.getElementById("email").value,
-phoneNumber: document.getElementById("phoneNumber").value,
-age: document.getElementById("age").value,
-disease: document.getElementById("disease").value,
-doctorAssigned: document.getElementById("doctorAssigned").value
+const book = {
+title: document.getElementById("title").value,
+author: document.getElementById("author").value,
+genre: document.getElementById("genre").value,
+publishedYear: document.getElementById("publishedYear").value
 };
 
 if(id){
@@ -24,7 +23,7 @@ if(id){
 await fetch(API_URL + "/" + id,{
 method:"PUT",
 headers:{"Content-Type":"application/json"},
-body:JSON.stringify(patient)
+body:JSON.stringify(book)
 });
 
 }else{
@@ -32,33 +31,34 @@ body:JSON.stringify(patient)
 await fetch(API_URL,{
 method:"POST",
 headers:{"Content-Type":"application/json"},
-body:JSON.stringify(patient)
+body:JSON.stringify(book)
 });
 
 }
 
 form.reset();
-document.getElementById("patientId").value="";
-loadPatients();
+document.getElementById("bookId").value="";
+loadBooks();
+
 });
 
-async function loadPatients(){
+async function loadBooks(){
 
 const res = await fetch(API_URL);
-const patients = await res.json();
+const books = await res.json();
 
 table.innerHTML="";
 
-patients.forEach(p => {
+books.forEach(b => {
 
 const row = `
 <tr>
-<td>${p.fullName}</td>
-<td>${p.disease}</td>
-<td>${p.doctorAssigned}</td>
+<td>${b.title}</td>
+<td>${b.author}</td>
+<td>${b.genre}</td>
 <td class="actions">
-<button onclick="editPatient('${p._id}')">Edit</button>
-<button onclick="deletePatient('${p._id}')">Delete</button>
+<button onclick="editBook('${b._id}')">Edit</button>
+<button onclick="deleteBook('${b._id}')">Delete</button>
 </td>
 </tr>
 `;
@@ -69,26 +69,25 @@ table.innerHTML += row;
 
 }
 
-async function deletePatient(id){
+async function deleteBook(id){
 
 await fetch(API_URL + "/" + id,{
 method:"DELETE"
 });
 
-loadPatients();
+loadBooks();
+
 }
 
-async function editPatient(id){
+async function editBook(id){
 
 const res = await fetch(API_URL + "/" + id);
-const p = await res.json();
+const b = await res.json();
 
-document.getElementById("patientId").value = p._id;
-document.getElementById("fullName").value = p.fullName;
-document.getElementById("email").value = p.email;
-document.getElementById("phoneNumber").value = p.phoneNumber;
-document.getElementById("age").value = p.age;
-document.getElementById("disease").value = p.disease;
-document.getElementById("doctorAssigned").value = p.doctorAssigned;
+document.getElementById("bookId").value = b._id;
+document.getElementById("title").value = b.title;
+document.getElementById("author").value = b.author;
+document.getElementById("genre").value = b.genre;
+document.getElementById("publishedYear").value = b.publishedYear;
 
 }

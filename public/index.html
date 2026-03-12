@@ -1,47 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Hospital Patient System</title>
+<title>Library Management System</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<h1>Hospital Patient Management</h1>
+<h1>Library Management System</h1>
 
 <div class="container">
 
-<h2>Add / Update Patient</h2>
+<h2>Add / Update Book</h2>
 
-<form id="patientForm">
+<form id="bookForm">
 
-<input type="hidden" id="patientId">
+<input type="hidden" id="bookId">
 
-<input type="text" id="fullName" placeholder="Full Name" required>
-<input type="email" id="email" placeholder="Email" required>
-<input type="text" id="phoneNumber" placeholder="Phone Number" required>
-<input type="number" id="age" placeholder="Age">
+<input type="text" id="title" placeholder="Book Title" required>
+<input type="text" id="author" placeholder="Author" required>
+<input type="text" id="genre" placeholder="Genre">
+<input type="number" id="publishedYear" placeholder="Published Year">
 
-<input type="text" id="disease" placeholder="Disease" required>
-<input type="text" id="doctorAssigned" placeholder="Doctor Assigned" required>
-
-<button type="submit">Save Patient</button>
+<button type="submit">Save Book</button>
 
 </form>
 
-<h2>Patient List</h2>
+<h2>Book List</h2>
 
 <table>
+
 <thead>
 <tr>
-<th>Name</th>
-<th>Disease</th>
-<th>Doctor</th>
+<th>Title</th>
+<th>Author</th>
+<th>Genre</th>
 <th>Actions</th>
 </tr>
 </thead>
 
-<tbody id="patientTable"></tbody>
+<tbody id="bookTable"></tbody>
 
 </table>
 
